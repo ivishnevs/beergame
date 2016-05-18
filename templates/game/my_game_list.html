@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <table>
+            <tr>
+                <td>Название</td>
+                <td>Кол-во игроков</td>
+                <td>Кол-во ходов</td>
+                <td>Текущий ход</td>
+                <td>Holding_cost</td>
+                <td>Backorder_cost</td>
+                <td>Шаблон спроса</td>
+
+            </tr>
+        {% for my_game in my_game_list %}
+            <tr>
+                <td>{{ my_game.name }}</td>
+                <td>{{ my_game.gamer_count }}</td>
+                <td>{{ my_game.steps_number }}</td>
+                <td>{{ my_game.current_step }}</td>
+                <td>{{ my_game.holding_cost }}</td>
+                <td>{{ my_game.backorder_cost }}</td>
+                <td>{{ my_game.demand_pattern }}</td>
+                <td><a href="{% url 'edit_game' my_game.id %}">Изменить</a></td>
+            </tr>
+        {% endfor %}
+
+    </table>
+</body>
+</html>

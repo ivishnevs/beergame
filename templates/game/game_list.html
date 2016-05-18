@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="http://code.jquery.com/jquery-2.2.2.js"
+            integrity="sha256-4/zUCqiq0kqxhZIyp4G0Gk+AOtCJsY1TA00k5ClsZYE="
+            crossorigin="anonymous">
+    </script>
+</head>
+<body style="margin: 50px">
+    <ul>
+    {% for user in users_with_game_set %}
+        <li><button onclick="cl()">{{ user.get_full_name }}</button></li>
+        {% for game in user.game_set.all %}
+            <a class="game-name" style="display: none" href="{% url 'choose_role' game.id %}">{{ game.name }}</a>
+        {% endfor %}
+    {% endfor %}
+    </ul>
+
+    <script>
+        function cl() {
+            if ($(".game-name").css("display") == 'none'){
+                $(".game-name").css("display", "inline")
+            }else {
+                $(".game-name").css("display", "none")
+            }
+        }
+    </script>
+</body>
+</html>

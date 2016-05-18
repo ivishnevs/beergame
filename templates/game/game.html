@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body style="margin: 50px">
+    <h2>{{ gamer.role }}</h2>
+    <h3>Ход: {{ gamer.game.current_step }}</h3>
+    <p>Штраф: <span style="color: red">{{ gamer.penalty }}</span></p>
+    {% if not gamer.is_step_completed %}
+    <table>
+        <tr>
+            <td>{{ gamer.current_order }}</td>
+        </tr>
+        <tr>
+            <td></td>
+            <td>
+                <form action="" method="post">
+                    {% csrf_token %}
+                    <input style="width: 50px" name="order" type="number" min="0" value="0" required>
+                    <input type="submit" value="order">
+                </form>
+            </td>
+        </tr>
+        <tr>
+            <td></td>
+            <td></td>
+            <td>{{ gamer.storage }}</td>
+        </tr>
+    </table>
+    {% else %}
+        <h1>Wait please!</h1>
+    {% endif %}
+
+    <br/>
+    <br/>
+    <h2>Статистика</h2>
+    <table>
+    <tr style="font-weight: bold;">
+        <td>Ход</td>
+        <td>Спрос</td>
+        <td>Мой заказ</td>
+        <td>Склад</td>
+        <td>Штраф</td>
+    </tr>
+    {% for stat in gamer.stats_set.all %}
+    <tr>
+        <td>{{ stat.step }}</td>
+        <td>{{ stat.current_order }}</td>
+        <td>{{ stat.my_order }}</td>
+        <td>{{ stat.storage }}</td>
+        <td style="color: red">{{ stat.penalty }}</td>
+    </tr>
+    {% endfor %}
+    </table>
+
+</body>
+</html>
